@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<%- include('../common/head.ejs') %>
+
+<body>
+    <%- include('../common/header.ejs') %>
+
+    <div class="content">
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1">
+                    <div class="text-center">
+                        <h1 class="mt-3">Your Cart</h1>
+                    </div>
+
+                    <table class="table table-hover text-center mt-5">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (products.length > 0) { %>
+                            <% products.forEach(p => { %>
+                            <tr>
+                                <td><%= p.productId.title %></td>
+                                <td><%= p.quantity %></td>
+                                <td>
+                                    <form action="/cart-delete-item" method="POST">
+                                        <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                                        <!-- CSRF TOKEN FOR FORMS -->
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <button class="btn btn-outline-secondary btn-sm" type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> </td>
+                                <!-- CSRF TOKEN FOR FORMS -->
+                                <td><a class="btn btn-outline-success btn-sm" href="/checkout">Order Now!</a></td>
+                            </tr>
+                            <% }) } %>
+                        </tbody>
+                    </table>
+                    <% if (products.length == 0) { %>
+                    <h3 class="text-center mt-4">Your Cart is Empty!</h3>
+                    <% } %>%>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <%- include('../common/footer.ejs') %>
+</body>
+
+</html>

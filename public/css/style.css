@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap');
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+    margin: 2rem 0 2rem;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+.card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.logo {
+    background: -webkit-linear-gradient(rgb(247, 201, 201), rgb(226, 110, 16));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 25px;
+    font-family: 'Oxygen', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+}

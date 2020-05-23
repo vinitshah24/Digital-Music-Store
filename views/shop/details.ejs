@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<%- include('../common/head.ejs') %>
+
+<body>
+    <%- include('../common/header.ejs') %>
+
+    <div class="content">
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1">
+                    <div class="text-center">
+                        <h1 class="mb-5">Details</h1>
+                    </div>
+
+                    <div class="card text-center mb-5">
+                        <div class="card-header py-0 pt-2">
+                            <h3><%= product.title %></h3>
+                        </div>
+                        <div class="card-body">
+                            <img class="mb-2" <img src="<%= product.imageUrl %>" alt="<%= product.title %>" height="50%"
+                                width="50%" alt="Card image cap">
+                            <h5><b>PRICE: </b> $<%= product.price %></h5>
+                            <p class="card-text"><%= product.description %></p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <form action="/cart" method="post">
+                                <input type="hidden" name="productId" value="<%= product._id %>">
+                                <!-- CSRF TOKEN FOR FORMS -->
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="btn btn-outline-secondary" type="submit">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <%- include('../common/footer.ejs') %>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<%- include('../common/head.ejs') %>
+
+<body>
+    <%- include('../common/header.ejs') %>
+
+    <div class="content">
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1">
+                    <div class="text-center">
+                        <h1 class="mb-5">Products</h1>
+                    </div>
+                    <% if (prods.length > 0) { %>
+                    <div class="row">
+                        <% for (let product of prods) { %>
+                        <div
+                            class="col-lg-4 col-md-4 col-sm-12 align-items-stretch col d-flex justify-content-center my-3">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-header bg-transparent text-center">
+                                    <h4><%= product.title %></h4>
+                                </div>
+                                <img class="card-img mb-2" src="<%= product.imageUrl %>" alt="<%= product.title %>">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">$<%= product.price %></h5>
+                                    <p class="card-text"><%= product.description %></p>
+                                    <form action="/admin/delete" method="POST">
+                                        <div class="container-fluid">
+                                            <div class="col-sm-12 text-center">
+                                                <a href="/admin/edit/<%= product._id %>?edit=true"
+                                                    class="btn btn-outline-success mr-2">Edit</a>
+                                                <input type="hidden" value="<%= product._id %>" name="productId">
+                                                <!-- CSRF TOKEN FOR FORMS -->
+                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+                    <%- include('../common/pagination.ejs', 
+                    {currentPage: currentPage, nextPage: nextPage, 
+                    previousPage: previousPage, lastPage: lastPage, 
+                    hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage}) %>
+                    <% } else { %>
+                    <div class="text-center">
+                        <h3>No Products Found!</h3>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <%- include('../common/footer.ejs') %>
+</body>
+
+</html>

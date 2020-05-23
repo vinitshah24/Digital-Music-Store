@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<%- include('../common/head.ejs') %>
+
+<body>
+    <%- include('../common/header.ejs') %>
+
+    <div class="content">
+        <main role="main" class="container mb-4">
+            <div class="row">
+                <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1">
+                    <div class="text-center">
+                        <h1>Your Orders</h1>
+                    </div>
+                    <% if (orders.length <= 0) { %>
+                    <div class="text-center">
+                        <h3 class="mt-5">No Orders Yet!</h3>
+                    </div>
+                    <% } else { %>
+                    <% orders.forEach(order => { %>
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 style="margin-bottom: .1rem;">Order Number: <%= order._id %></h5>
+                        </div>
+                        <div class="card-body">
+                            <% order.products.forEach(p => { %>
+                            <p style="margin-bottom: 0rem;"><%= p.product.title %> (<%= p.quantity %>)</p>
+                            <% }); %>
+                        </div>
+                    </div>
+                    <% }); %>
+                    <% } %>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <%- include('../common/footer.ejs') %>
+</body>
+
+</html>

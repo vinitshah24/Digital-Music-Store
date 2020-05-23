@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<%- include('../common/head.ejs') %>
+
+<body>
+    <%- include('../common/header.ejs') %>
+
+    <div class="content">
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1">
+
+                    <div class="text-center">
+                        <h1 class="mb-5">Create Product</h1>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <form class="col-md-8 col-xs-8 offset-xs-1"
+                            action="/admin/<% if (editing) { %>edit<% } else { %>add<% } %>" method="POST">
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="name">Product Name</label>
+                                    <input type="text" class="form-control" id="name" name="title"
+                                        value="<% if (editing) { %><%= product.title %><% } %>">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="price">Price</label>
+                                    <input type="number" class="form-control" id="price" name="price" step="0.02" min=1
+                                        max=10000 value="<% if (editing) { %><%= product.price %><% } %>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Image URL</label>
+                                <input type="text" class="form-control" id="image" name="imageUrl" placeholder="URL"
+                                    value="<% if (editing) { %><%= product.imageUrl %><% } %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Product Description</label>
+                                <textarea class="form-control" id="description" name="description"
+                                    rows="5"> <% if (editing) { %><%= product.description %><% } %></textarea>
+                            </div>
+                            <% if (editing) { %>
+                            <input type="hidden" value="<%= product._id %>" name="productId">
+                            <% } %>
+                            <div>
+                                <!-- CSRF TOKEN FOR FORMS -->
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <!--class="col-sm-12 text-center"-->
+                                <button class="btn btn-outline-secondary" type="submit"><% if (editing) { %>Update
+                                    Product<% } else { %>Add Product<% } %>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <%- include('../common/footer.ejs') %>
+</body>
+
+</html>
